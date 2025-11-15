@@ -45,7 +45,11 @@
 <body>
 
 <h1>OpenGL Basics - Homework 4</h1>
-<p>Welcome to my OpenGL Basics assignment. Below are the results for Part A, solutions for Part B, and my additional programming exercises with descriptions.</p>
+<p>Below are the results for Part A, solutions for Part B, and my additional programming exercises with descriptions.</p>
+
+<p>Project Resources</p>
+<a href="https://drive.google.com/file/d/1d4UXt2L0Tdbl5WdvwYEUvw_dYsDdWJur/view?usp=drive_link" target="_blank">
+</a>
 
 
 <!-- =========================== PART A =========================== -->
@@ -107,6 +111,7 @@
         I changed the light direction in the fragment shader so the light shines upward from below.
         Instead of pointing downward, I set the vector to something like <code>vec3(0, 1, -1)</code>.
         This flips which surfaces receive diffuse lighting and makes the cube appear illuminated from beneath.
+        Because the camera treats Z as the screen-up direction, adjusting the Z component of the light direction determines which face visually looks lit from above or below, even though Y is the cube’s true vertical axis.
     </p>
     <img class="image" src="B3.gif" alt="Light-from-below cube">
 
@@ -130,9 +135,7 @@
     <!-- 1. Random Color -->
     <h3>1. Random Color Cube</h3>
     <p>
-        For this exercise, I modified the shader so the cube continuously changes color every frame.
-        I passed time into the shader and used sinusoidal variations to generate smooth color transitions.
-        The result is a cube that cycles through the entire RGB spectrum.
+        For this exercise, I modified the shader so the teapot changes color when key C pressed.
     </p>
     <img class="image" src="1.4 random color.gif" alt="Random color cube">
 
@@ -156,8 +159,8 @@
     <!-- 4. Rotating Light -->
     <h3>3. Rotating Light Source</h3>
     <p>
-        I animated the light position by rotating it around the cube using a sine and cosine orbit.
-        This creates dynamic lighting where the highlight moves across the cube in real time,
+        I animated the light position by rotating it around the cube.
+        This creates dynamic lighting where the highlight moves across the cube,
         making the shading appear much more alive.
     </p>
     <img class="image" src="1.5 rotating light.gif" alt="Rotating light demo">
