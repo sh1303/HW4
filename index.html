@@ -40,19 +40,19 @@
         <p>Below are the images for the demos in Part A of the assignment:</p>
 
         <h3>Cube3D Demo (No Depth Testing)</h3>
-        <img class="image" src="Cube3D.gif" alt="Cube3D demo without depth testing">
+        <img class="image" src="Cube3D.gif" alt="Cube3D demo without depth testing" loop>
 
         <h3>Cube3D_B Demo (Part B1)</h3>
-        <img class="image" src="Cube3D_B.gif" alt="Cube3D_B demo for Part B1">
+        <img class="image" src="Cube3D_B.gif" alt="Cube3D_B demo for Part B1" loop>
 
         <h3>Triangle Model Demo</h3>
-        <img class="image" src="triangle.png" alt="Triangle model demo">
+        <img class="image" src="triangle.png" alt="Triangle model demo" loop>
 
         <h3>CubeLitA Demo</h3>
-        <img class="image" src="CubeLitA.gif" alt="CubeLitA demo">
+        <img class="image" src="CubeLitA.gif" alt="CubeLitA demo" loop>
 
         <h3>Model_A Demo</h3>
-        <img class="image" src="Model_A.gif" alt="Model_A demo">
+        <img class="image" src="Model_A.gif" alt="Model_A demo" loop>
     </div>
 
     <div class="section">
@@ -60,7 +60,7 @@
 
         <h3>B1: Depth Testing Removal</h3>
         <p>In Cube3D.cpp, we call <code>glEnable(GL_DEPTH_TEST)</code>. Removing this call disables depth testing, causing OpenGL to draw triangles in the order they appear in the array. As a result, earlier faces (like red) may get overwritten by later ones, leading to deformation or flickering of the cube as it rotates.</p>
-        <img class="image" src="B2.gif" alt="Cube3D without depth testing">
+        <img class="image" src="B2.gif" alt="Cube3D without depth testing" loop>
 
         <h3>B2: Updating the Quit Condition</h3>
         <p>In the original program, the escape key (Escape) is used to exit the program. To also exit when the "Q" key is pressed, I modified the event handling code as follows:</p>
@@ -69,15 +69,15 @@
             &nbsp;&nbsp;&nbsp;&nbsp;quit = true;<br>
             }
         </div>
-        <img class="image" src="B3.gif" alt="Keyboard event handling updated">
+        <img class="image" src="B3.gif" alt="Keyboard event handling updated" loop>
         
         <h3>B3: Light Direction Modification</h3>
         <p>In CubeLit.cpp, I changed the light direction vector in the fragment shader to point downward (e.g., <code>vec3(0, 1, -1)</code>) to simulate light coming from below the cube. The modified shader results in the cube being lit from below, giving it a different visual appearance.</p>
-        <img class="image" src="B4.gif" alt="Cube with light from below">
+        <img class="image" src="B4.gif" alt="Cube with light from below" loop>
 
         <h3>B4: Model Load</h3>
         <p>Here is the new image of the modified model with the required changes:</p>
-        <img class="image" src="teapot.gif" alt="Modified teapot model">
+        <img class="image" src="teapot.gif" alt="Modified teapot model" loop>
     </div>
 
     <div class="section">
