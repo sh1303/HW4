@@ -21,6 +21,17 @@
             max-width: 100%;
             height: auto;
         }
+        .side-by-side {
+            display: flex;
+            gap: 20px;
+            justify-content: flex-start;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        .side-by-side img {
+            width: 48%;
+            border-radius: 4px;
+        }
         .code-block {
             background-color: #282c34;
             color: white;
@@ -32,59 +43,141 @@
     </style>
 </head>
 <body>
-    <h1>OpenGL Basics - Homework 4</h1>
-    <p>Welcome to my OpenGL Basics assignment. Below are the sections from the assignment with the required images and explanations.</p>
 
-    <div class="section">
-        <h2>Part A: Demo Results</h2>
-        <p>Below are the images for the demos in Part A of the assignment:</p>
+<h1>OpenGL Basics - Homework 4</h1>
+<p>Welcome to my OpenGL Basics assignment. Below are the results for Part A, solutions for Part B, and my additional programming exercises with descriptions.</p>
 
-        <h3>BlankScreen Demo</h3>
-        <img class="image" src="blankscreen.png" alt="Blank screen demo" loop>
 
-        <h3>Cube3D Demo</h3>
-        <img class="image" src="Cube3D.gif" alt="Cube3D demo without depth testing" loop>
+<!-- =========================== PART A =========================== -->
+<div class="section">
+    <h2>Part A: Demo Results</h2>
 
-        <h3>Triangle Model Demo</h3>
-        <img class="image" src="triangle.png" alt="Triangle model demo" loop>
+    <h3>BlankScreen Demo</h3>
+    <img class="image" src="blankscreen.png" alt="Blank screen demo">
 
-        <h3>CubeLit Demo</h3>
-        <img class="image" src="CubeLitA.gif" alt="CubeLitA demo" loop>
+    <h3>Cube3D Demo</h3>
+    <img class="image" src="Cube3D.gif" alt="Cube3D demo">
 
-        <h3>ModelLoad Demo</h3>
-        <img class="image" src="Model_A.gif" alt="Model_A demo" loop>
+    <h3>Triangle Model Demo</h3>
+    <img class="image" src="triangle.png" alt="Triangle model demo">
+
+    <h3>CubeLit Demo</h3>
+    <img class="image" src="CubeLitA.gif" alt="CubeLit demo">
+
+    <h3>ModelLoad Demo</h3>
+    <img class="image" src="Model_A.gif" alt="ModelLoad demo">
+</div>
+
+
+
+<!-- =========================== PART B =========================== -->
+<div class="section">
+    <h2>Part B: Modifications and Explanations</h2>
+
+    <h3>Q1: Depth Testing Removal</h3>
+    <p>
+        Removing <code>glEnable(GL_DEPTH_TEST)</code> breaks depth comparison completely.
+        OpenGL then draws triangles in the exact array order, causing faces that should be hidden
+        to appear in front. As the cube rotates, this creates flickering and a distorted shape
+        because visibility is not based on distance anymore.
+    </p>
+    <img class="image" src="Cube3D_B.gif" alt="Cube3D without depth test">
+
+
+    <h3>Q2: Updating the Quit Condition (ESC + Q)</h3>
+    <p>
+        I updated the input handling so the program exits not only when ESC is pressed,
+        but also when the Q key is released. I added an extra condition to check for
+        <code>SDL_SCANCODE_Q</code> in the SDL key-up event. The GIF below demonstrates the updated controls.
+    </p>
+
+    <div class="code-block">
+        if (windowEvent.type == SDL_EVENT_KEY_UP &&<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;(windowEvent.key.key == SDLK_ESCAPE ||<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;windowEvent.key.scancode == SDL_SCANCODE_Q)) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;quit = true;<br>
+        }
     </div>
 
-    <div class="section">
-        <h2>Part B: Modifications and Explanations</h2>
+    <img class="image" src="2_controls.gif" alt="Controls demo">
 
-        <h3>Q1: Depth Testing Removal</h3>
-        <p>In Cube3D.cpp, we call <code>glEnable(GL_DEPTH_TEST)</code>. Removing this call disables depth testing, causing OpenGL to draw triangles in the order they appear in the array. As a result, earlier faces (like red) may get overwritten by later ones, leading to deformation or flickering of the cube as it rotates.</p>
-        <img class="image" src="Cube3D_B.gif" alt="Cube3D_B demo for Part B1" loop>
 
-        <h3>Q2: Updating the Quit Condition</h3>
-        <p>In the original program, the escape key (Escape) is used to exit the program. To also exit when the "Q" key is pressed, I modified the event handling code as follows:</p>
-        <div class="code-block">
-            if (windowEvent.type == SDL_EVENT_KEY_UP && (windowEvent.key.key == SDLK_ESCAPE || windowEvent.key.scancode == SDL_SCANCODE_Q)) {<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;quit = true;<br>
-            }
-        </div>
-        <img class="image" src="B2.gif" alt="Keyboard event handling updated" loop>
-        
-        <h3>Q3: Light Direction Modification</h3>
-        <p>In CubeLit.cpp, I changed the light direction vector in the fragment shader to point downward (<code>vec3(0, 1, -1)</code>) to simulate light coming from below the cube. The modified shader results in the cube being lit from below, giving it a different visual appearance. Because the camera treats Z as the screen-up direction, adjusting the Z component of the light direction determines which face visually looks lit from above or below, even though Y is the cube’s true vertical axis. </p>
-        <img class="image" src="B3.gif" alt="Cube with light from below" loop>
+    <h3>Q3: Light Direction Modification</h3>
+    <p>
+        I changed the light direction in the fragment shader so the light shines upward from below.
+        Instead of pointing downward, I set the vector to something like <code>vec3(0, 1, -1)</code>.
+        This flips which surfaces receive diffuse lighting and makes the cube appear illuminated from beneath.
+    </p>
+    <img class="image" src="B3.gif" alt="Light-from-below cube">
 
-        <h3>Q4: Model Load</h3>
-        <p>Rendering of created big triangle (traingle.txt) and teapot </p>
-        <img class="image" src="B4.gif" alt="Created triangle" loop>
-        <img class="image" src="teapot.gif" alt="Modified teapot model" loop>
+
+    <h3>Q4: Model Load – Triangle and Teapot</h3>
+    <p>
+        I created a large single-triangle model by hand and rendered it. I also loaded a teapot model to verify
+        the ModelLoad system works with additional OBJ-like formats. Both outputs are shown below.
+    </p>
+    <img class="image" src="B4.gif" alt="Triangle output">
+    <img class="image" src="teapot.gif" alt="Teapot output">
+
+</div>
+
+
+
+<!-- =========================== ADDITIONAL POINTS =========================== -->
+<div class="section">
+    <h2>Additional Points (Programming Exercises)</h2>
+
+    <!-- 1. Random Color -->
+    <h3>1. Random Color Cube</h3>
+    <p>
+        For this exercise, I modified the shader so the cube continuously changes color every frame.
+        I passed time into the shader and used sinusoidal variations to generate smooth color transitions.
+        The result is a cube that cycles through the entire RGB spectrum.
+    </p>
+    <img class="image" src="1.4 random color.gif" alt="Random color cube">
+
+
+    <!-- 2. Controls (already above but repeated for XP completeness?) No, skip -->
+
+    <!-- 3. Blinn-Phong -->
+    <h3>2. Blinn–Phong Shading</h3>
+    <p>
+        To implement Blinn–Phong shading, I replaced the standard Phong specular calculation with the
+        half-vector formulation. This reduces computation and produces tighter, smoother highlights.
+        Below are the original rendering and my Blinn–Phong version shown side by side.
+    </p>
+
+    <div class="side-by-side">
+        <img src="3_original.png" alt="Original shading">
+        <img src="3_blinn_phong.png" alt="Blinn Phong shading">
     </div>
 
-    <div class="section">
-        <h2>Conclusion</h2>
-        <p>These changes were necessary to demonstrate different aspects of OpenGL programming, such as handling depth testing, customizing key events, and modifying light direction in shaders. The demo images show the effects of these modifications in real-time.</p>
-    </div>
+
+    <!-- 4. Rotating Light -->
+    <h3>3. Rotating Light Source</h3>
+    <p>
+        I animated the light position by rotating it around the cube using a sine and cosine orbit.
+        This creates dynamic lighting where the highlight moves across the cube in real time,
+        making the shading appear much more alive.
+    </p>
+    <img class="image" src="1.5 rotating light.gif" alt="Rotating light demo">
+
+</div>
+
+
+
+
+<!-- =========================== CONCLUSION =========================== -->
+<div class="section">
+    <h2>Conclusion</h2>
+    <p>
+        These exercises helped me understand how OpenGL handles depth buffering, lighting calculations,
+        model loading, event processing, and shader-based animation. Modifying lights, implementing
+        Blinn–Phong, and adding dynamic effects gave me hands-on experience with core real-time
+        rendering techniques.
+    </p>
+</div>
+
 
 </body>
 </html>
